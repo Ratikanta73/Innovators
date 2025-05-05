@@ -480,30 +480,33 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Handle form submission
-    const contactForm = document.getElementById('contact-form');
-    
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form values
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value;
-            
-            // Here you would typically send the form data to your server
-            // For demonstration, we'll just log it
-            console.log('Form submission:', { name, email, subject, message });
-            
-            // Reset the form
-            contactForm.reset();
-            
-            // Show success message (in a real implementation)
-            alert('Thanks for your message! We will get back to you soon.');
-        });
-    }
+   // Handle form submission
+const contactForm = document.getElementById('contact-form');
+
+if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form values
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const subject = document.getElementById('subject').value;
+        const message = document.getElementById('message').value;
+
+        // Format the message for WhatsApp
+        const whatsappMessage = `Hello, I am ${name} (%0AEmail: ${email}) %0ASubject: ${subject} %0AMessage: ${message}`;
+
+        // WhatsApp API link
+        const whatsappURL = `https://wa.me/919556889369?text=${encodeURIComponent(whatsappMessage)}`;
+
+        // Open WhatsApp chat in new tab
+        window.open(whatsappURL, '_blank');
+
+        // Optional: Reset form
+        contactForm.reset();
+    });
+}
+
     
     // Add fade-in effect for elements as they enter the viewport
     const fadeElements = document.querySelectorAll('.project-card, .team-card, .event-tag');
