@@ -501,6 +501,7 @@ if (contactForm) {
             ------------------------
             *Name:* ${name}
             *Email:* ${email}
+            *Subject:* ${subject}
             *Message:* ${message}
             ------------------------
                     `.trim();
