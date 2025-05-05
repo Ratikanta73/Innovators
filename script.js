@@ -494,7 +494,8 @@ if (contactForm) {
         const message = document.getElementById('message').value;
 
         // Format the message for WhatsApp
-        const whatsappMessage = `Hello, I am ${name} (%0AEmail: ${email}) %0ASubject: ${subject} %0AMessage: ${message}`;
+        const whatsappMessage = `Hello, I am ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${message}`;
+
 
         // WhatsApp API link
         const whatsappURL = `https://wa.me/919556889369?text=${encodeURIComponent(whatsappMessage)}`;
