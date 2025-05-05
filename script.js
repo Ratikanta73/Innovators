@@ -497,14 +497,14 @@ if (contactForm) {
         // const whatsappMessage = `Hello, I am ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${message}`;
 
         const whatsappMessage = `
-        *Contact Form Submission*
-            ------------------------
-            *Name:* ${name}
-            *Email:* ${email}
-            *Subject:* ${subject}
-            *Message:* ${message}
-            ------------------------
-                    `.trim();
+*Contact Form Submission*
+------------------------
+*Name:* ${name}
+*Email:* ${email}
+*Subject:* ${subject}
+*Message:* ${message}
+------------------------
+            `.trim();
 
 
         // WhatsApp API link
