@@ -374,21 +374,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
 
                 // Populate gallery
-                modalProjectGallery.innerHTML = '';
-                currentGalleryImages = project.gallery;
-                currentGalleryIndex = 0;
+                // modalProjectGallery.innerHTML = '';
+                // currentGalleryImages = project.gallery;
+                // currentGalleryIndex = 0;
 
-                if (project.gallery.length > 0) {
-                    // Create gallery images
-                    project.gallery.forEach((image, index) => {
-                        const img = document.createElement('img');
-                        img.src = image.url;
-                        img.alt = image.alt;
-                        img.className = 'gallery-image';
-                        img.style.display = index === 0 ? 'block' : 'none';
-                        modalProjectGallery.appendChild(img);
-                    });
-                }
+                // if (project.gallery.length > 0) {
+                //     // Create gallery images
+                //     project.gallery.forEach((image, index) => {
+                //         const img = document.createElement('img');
+                //         img.src = image.url;
+                //         img.alt = image.alt;
+                //         img.className = 'gallery-image';
+                //         img.style.display = index === 0 ? 'block' : 'none';
+                //         modalProjectGallery.appendChild(img);
+                //     });
+                // }
 
                 openProjectModal();
                 console.log('Project modal opened for project:', project.title);
