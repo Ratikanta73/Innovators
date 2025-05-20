@@ -639,4 +639,181 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 300);
     });
 
+
+    const galleryItems = [
+            {
+                id: 1,
+                img: "Assets/Cover/Avani.webp",
+                title: "Annual Innovation Hackathon 2024",
+                date: "March 15, 2024",
+                category: "hackathon"
+            },
+            {
+                id: 2,
+                img: "Assets/Cover/Avani.webp",
+                title: "Web Development Workshop",
+                date: "April 22, 2024",
+                category: "workshop"
+            },
+            {
+                id: 3,
+                img: "Assets/Cover/Avani.webp",
+                title: "Tech Conference 2024",
+                date: "January 10, 2024",
+                category: "conference"
+            },
+            {
+                id: 4,
+                img: "Assets/Cover/Avani.webp",
+                title: "Mobile App Development Hackathon",
+                date: "February 5, 2024",
+                category: "hackathon"
+            },
+            {
+                id: 5,
+                img: "Assets/Cover/Avani.webp",
+                title: "Data Science Workshop",
+                date: "May 18, 2024",
+                category: "workshop"
+            },
+            {
+                id: 6,
+                img: "Assets/Cover/Avani.webp",
+                title: "Startup Pitch Competition",
+                date: "June 3, 2024",
+                category: "conference"
+            }
+        ];
+
+    const galleryGrid = document.querySelector('.gallery-grid');
+            const filterButtons = document.querySelectorAll('.event-tag2');
+            const modal = document.querySelector('.gallery-modal');
+            const modalImg = modal.querySelector('.modal-img');
+            const modalCaption = modal.querySelector('.modal-caption');
+            const modalClose = modal.querySelector('.modal-close');
+            const modalPrev = modal.querySelector('.modal-prev');
+            const modalNext = modal.querySelector('.modal-next');
+            
+            let currentCategory = 'all';
+            let currentImageIndex = 0;
+            
+            // Populate gallery
+            function renderGallery() {
+                galleryGrid.innerHTML = '';
+                
+                const filteredItems = currentCategory === 'all' 
+                    ? galleryItems 
+                    : galleryItems.filter(item => item.category === currentCategory);
+                
+                filteredItems.forEach(item => {
+                    const galleryItem = document.createElement('div');
+                    galleryItem.className = 'gallery-item';
+                    galleryItem.dataset.category = item.category;
+                    galleryItem.dataset.id = item.id;
+                    
+                    galleryItem.innerHTML = `
+                        <img src="${item.img}" alt="${item.title}">
+                        <div class="gallery-item-overlay">
+                            <h3 class="gallery-item-title">${item.title}</h3>
+                            <p class="gallery-item-date">${item.date}</p>
+                        </div>
+                    `;
+                    
+                    galleryGrid.appendChild(galleryItem);
+                    
+                    // Add click event to open modal
+                    galleryItem.addEventListener('click', () => {
+                        openModal(filteredItems.indexOf(item), filteredItems);
+                    });
+                });
+            }
+            
+            // Filter gallery
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const filter = btn.dataset.filter;
+                    
+                    // Update active button
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    currentCategory = filter;
+                    renderGallery();
+                });
+            });
+            
+            // Modal functions
+            function openModal(index, items) {
+                currentImageIndex = index;
+                updateModal(items);
+                modal.classList.add('open');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            }
+            
+            function closeModal() {
+                modal.classList.remove('open');
+                document.body.style.overflow = ''; // Restore scrolling
+            }
+            
+            function updateModal(items) {
+                const item = items[currentImageIndex];
+                modalImg.src = item.img;
+                modalCaption.textContent = `${item.title} - ${item.date}`;
+            }
+            
+            function nextImage(items) {
+                currentImageIndex = (currentImageIndex + 1) % items.length;
+                updateModal(items);
+            }
+            
+            function prevImage(items) {
+                currentImageIndex = (currentImageIndex - 1 + items.length) % items.length;
+                updateModal(items);
+            }
+            
+            // Modal event listeners
+            modalClose.addEventListener('click', closeModal);
+            
+            modalNext.addEventListener('click', () => {
+                const filteredItems = currentCategory === 'all' 
+                    ? galleryItems 
+                    : galleryItems.filter(item => item.category === currentCategory);
+                nextImage(filteredItems);
+            });
+            
+            modalPrev.addEventListener('click', () => {
+                const filteredItems = currentCategory === 'all' 
+                    ? galleryItems 
+                    : galleryItems.filter(item => item.category === currentCategory);
+                prevImage(filteredItems);
+            });
+            
+            // Close modal when clicking outside the content
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+            
+            // Close modal with ESC key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeModal();
+                }
+                
+                const filteredItems = currentCategory === 'all' 
+                    ? galleryItems 
+                    : galleryItems.filter(item => item.category === currentCategory);
+                
+                if (e.key === 'ArrowRight') {
+                    nextImage(filteredItems);
+                }
+                
+                if (e.key === 'ArrowLeft') {
+                    prevImage(filteredItems);
+                }
+            });
+            
+            // Initial render
+            renderGallery();
 });
